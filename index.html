@@ -25,7 +25,7 @@ button {
 }
 .hidden { display:none; }
 .center { padding-top:100px; }
-img.photo, #cakeImage {
+img.photo, #cakeImage, #cutCakeImage {
   width:300px;
   border-radius:15px;
   margin-top:20px;
@@ -34,6 +34,7 @@ img.photo, #cakeImage {
 #cakeContainer {
   margin-top:20px;
   animation:pop 1s ease;
+  font-size:50px;
 }
 #candles {
   margin-bottom:10px;
@@ -103,7 +104,7 @@ canvas#fireworks {
 <!-- PAGE 5: Candle video -->
 <div id="page5" class="center hidden">
   <h1>💨 Blowing the candle! 💨</h1>
-  <video id="candleVideo" src="photos/candle.mp4" autoplay></video>
+  <video id="candleVideo" src="photos/candle.mp4" autoplay muted playsinline></video>
 </div>
 
 <!-- PAGE 6: Cut cake -->
@@ -165,7 +166,7 @@ function submitWish(){
     alert("Please type your wish first!");
     return;
   }
-  show('page4'); // Show cake
+  show('page4'); // Show cake with candles
   bigFireworks();
 }
 
@@ -173,6 +174,8 @@ function submitWish(){
 function blowCandle(){
   show('page5'); // Show candle video
   const video = document.getElementById('candleVideo');
+  video.currentTime = 0;
+  video.play(); // ensure it plays
   bigFireworks();
   video.onended = function(){
     show('page6'); // After video ends, show cut cake page
