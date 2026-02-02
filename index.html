@@ -25,7 +25,7 @@ button {
 }
 .hidden { display:none; }
 .center { padding-top:100px; }
-img.photo, #cakeImage, #cutCakeImage {
+img.photo, #cakeImage, #cutCakeImage, #candleImage {
   width:300px;
   border-radius:15px;
   margin-top:20px;
@@ -39,11 +39,6 @@ img.photo, #cakeImage, #cutCakeImage {
 #candles {
   margin-bottom:10px;
   font-size:25px;
-}
-video {
-  width:300px;
-  margin-top:20px;
-  border-radius:15px;
 }
 input {
   padding:15px;
@@ -95,22 +90,24 @@ canvas#fireworks {
   <h1>🎂 Here’s your cake! 🎂</h1>
   <div id="cakeContainer">
     <div id="candles">🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️</div>
-    <img id="cakeImage" src="photos/cake.jiff" alt="Cake">
+    <img id="cakeImage" src="photos/cake.jpg" alt="Cake">
   </div>
   <br>
   <button onclick="blowCandle()">Blow Candle</button>
 </div>
 
-<!-- PAGE 5: Candle video -->
+<!-- PAGE 5: Candle blown image -->
 <div id="page5" class="center hidden">
-  <h1>💨 Blowing the candle! 💨</h1>
-  <video id="candleVideo" src="photos/candle.mp4" autoplay muted playsinline></video>
+  <h1>💨 Candle blown! 💨</h1>
+  <img id="candleImage" src="photos/candle.jpg" alt="Candle blown">
+  <br>
+  <button onclick="showCutCake()">Cut Cake</button>
 </div>
 
 <!-- PAGE 6: Cut cake -->
 <div id="page6" class="center hidden">
   <h1>🍰 Cut the cake!</h1>
-  <img id="cutCakeImage" src="photos/cake.jiff" alt="Cake">
+  <img id="cutCakeImage" src="photos/cake.jpg" alt="Cake">
   <br>
   <button onclick="cakeCut()">Cut Cake</button>
 </div>
@@ -172,15 +169,14 @@ function submitWish(){
 
 // Blow Candle
 function blowCandle(){
-  show('page5'); // Show candle video
-  const video = document.getElementById('candleVideo');
-  video.currentTime = 0;
-  video.play(); // ensure it plays
+  show('page5'); // Show candle blown image
   bigFireworks();
-  video.onended = function(){
-    show('page6'); // After video ends, show cut cake page
-    bigFireworks();
-  }
+}
+
+// Show Cut Cake page
+function showCutCake(){
+  show('page6');
+  bigFireworks();
 }
 
 // Cut Cake
