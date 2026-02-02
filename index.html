@@ -34,13 +34,11 @@ img.photo {
 #cakeContainer {
   margin-top:20px;
   animation:pop 1s ease;
-}
-#cakeImage {
-  width:250px;
+  font-size:50px;
 }
 #candles {
-  margin-top:10px;
-  font-size:20px;
+  margin-bottom:10px;
+  font-size:25px;
 }
 input {
   padding:15px;
@@ -87,12 +85,12 @@ canvas#fireworks {
   <button onclick="submitWish()">Submit Wish</button>
 </div>
 
-<!-- PAGE 4: Cake with candles -->
+<!-- PAGE 4: Cake and Candles using emojis -->
 <div id="page4" class="center hidden">
   <h1>🎂 Here’s your cake! 🎂</h1>
   <div id="cakeContainer">
-    <img id="cakeImage" src="photos/cake.png" alt="Cake">
     <div id="candles">🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️</div>
+    <div>🍰</div>
   </div>
   <br>
   <button onclick="blowCandles()">Blow Candles</button>
@@ -106,66 +104,4 @@ canvas#fireworks {
   <img src="photos/wish.jpeg" class="photo" alt="Final Wish">
 </div>
 
-<!-- Fireworks Canvas -->
-<canvas id="fireworks"></canvas>
-
-<script>
-// Show a page
-function show(pageId){
-  document.querySelectorAll('div').forEach(d => d.classList.add('hidden'));
-  document.getElementById(pageId).classList.remove('hidden');
-}
-
-// Fireworks animation
-function bigFireworks(){
-  const canvas = document.getElementById('fireworks');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  for(let i=0;i<300;i++){
-    const x=Math.random()*canvas.width;
-    const y=Math.random()*canvas.height/2;
-    const r=Math.random()*3+2;
-    ctx.beginPath();
-    ctx.arc(x,y,r,0,2*Math.PI);
-    ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`;
-    ctx.fill();
-  }
-
-  setTimeout(()=>ctx.clearRect(0,0,canvas.width,canvas.height),1500);
-}
-
-// Start Party
-function startParty(){
-  show('page2');
-  bigFireworks();
-  setTimeout(() => show('page3'), 3000);
-}
-
-// Submit Wish
-function submitWish(){
-  const wish = document.getElementById('wishInput').value.trim();
-  if(wish===""){
-    alert("Please type your wish first!");
-    return;
-  }
-  show('page4'); // Show cake with candles
-  bigFireworks();
-}
-
-// Blow Candles
-function blowCandles(){
-  document.getElementById('candles').innerText = "💨💨💨";
-  bigFireworks();
-  document.getElementById('cutButton').classList.remove('hidden'); // Show cut cake button
-}
-
-// Cut Cake
-function cutCake(){
-  bigFireworks();
-  show('page5'); // Final message
-}
-</script>
-</body>
-</html>
+<!-- Fireworks Canvas --
