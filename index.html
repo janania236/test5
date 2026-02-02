@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Nischay! 🎉</title>
+<style>
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#111;
+  color:#fff;
+  text-align:center;
+}
+button {
+  padding:15px 30px;
+  font-size:18px;
+  margin:10px;
+  cursor:pointer;
+  border:none;
+  border-radius:8px;
+  background:#ff4081;
+  color:#fff;
+  z-index: 10;
+  position: relative;
+}
+.hidden { display:none; }
+.center { padding-top:100px; }
+img.photo {
+  width:300px;
+  border-radius:15px;
+  margin-top:20px;
+  animation:pop 1s ease;
+}
+#cakeContainer {
+  margin-top:20px;
+  animation:pop 1s ease;
+}
+#cakeImage {
+  width:250px;
+}
+#candles {
+  margin-top:10px;
+  font-size:20px;
+}
+input {
+  padding:15px;
+  font-size:16px;
+  width:300px;
+  border-radius:8px;
+  border:none;
+}
+@keyframes pop {
+  from { transform:scale(0); }
+  to { transform:scale(1); }
+}
+canvas#fireworks {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:0;
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1" class="center">
+  <h1>🎂 Are you the birthday boy? 🎂</h1>
+  <button onclick="startParty()">YES 🎉</button>
+  <button onclick="alert('Nice try 😏')">NO</button>
+</div>
+
+<!-- PAGE 2: Birthday message -->
+<div id="page2" class="center hidden">
+  <h1>🎆 Happy Birthday to my favorite boy, Nischay! 🎆</h1>
+  <img src="photos/nischay.jpeg" class="photo" alt="Nischay">
+</div>
+
+<!-- PAGE 3: Make a wish -->
+<div id="page3" class="center hidden">
+  <h1>✨ Make a wish ✨</h1>
+  <input type="text" id="wishInput" placeholder="Type your wish here 💖">
+  <br>
+  <button onclick="submitWish()">Submit Wish</button>
+</div>
+
+<!-- PAGE 4: Cake with candles -->
+<div id="page4" class="center hidden">
+  <h1>🎂 Here’s your cake! 🎂</h1>
+  <div id="cakeContainer">
+    <img id="cakeImage" src="photos/cake.png" alt="Cake">
+    <div id="candles">🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️</div>
+  </div>
+  <br>
+  <button onclick="blowCandles()">Blow Candles</button>
+  <button onclick="cutCake()" class="hidden" id="cutButton">Cut Cake</button>
+</div>
+
+<!-- PAGE 5: Final message -->
+<div id="page5" class="center hidden">
+  <h1>💖 Happy Birthday once again! 💖</h1>
+  <p>May God bless you with abundance, happiness, and success. May all your wishes come true ✨</p>
+  <img src="photos/wish.jpeg" class="photo" alt="Final Wish">
+</div>
+
+<!-- Fireworks Canvas -->
+<canvas id="fireworks"></canvas>
+
+<script>
+// Show a page
+function show(pageId){
+  document.querySelectorAll('div').forEach(d => d.classList.add('hidden'));
+  document.getElementById(pageId).classList.remove('hidden');
+}
+
+// Fireworks animation
+function bigFireworks(){
+  const canvas = document.getElementById('fireworks');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  for(let i=0;i<300;i++){
+    const x=Math.random()*canvas.width;
+    const y=Math.random()*canvas.height/2;
+    const r=Math.random()*3+2;
+    ctx.beginPath();
+    ctx.arc(x,y,r,0,2*Math.PI);
+    ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`;
+    ctx.fill();
+  }
+
+  setTimeout(()=>ctx.clearRect(0,0,canvas.width,canvas.height),1500);
+}
+
+// Start Party
+function startParty(){
+  show('page2');
+  bigFireworks();
+  setTimeout(() => show('page3'), 3000);
+}
+
+// Submit Wish
+function submitWish(){
+  const wish = document.getElementById('wishInput').value.trim();
+  if(wish===""){
+    alert("Please type your wish first!");
+    return;
+  }
+  show('page4'); // Show cake with candles
+  bigFireworks();
+}
+
+// Blow Candles
+function blowCandles(){
+  document.getElementById('candles').innerText = "💨💨💨";
+  bigFireworks();
+  document.getElementById('cutButton').classList.remove('hidden'); // Show cut cake button
+}
+
+// Cut Cake
+function cutCake(){
+  bigFireworks();
+  show('page5'); // Final message
+}
+</script>
+</body>
+</html>
