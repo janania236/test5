@@ -20,32 +20,14 @@ button {
   border-radius:8px;
   background:#ff4081;
   color:#fff;
-  z-index: 10;
-  position: relative;
 }
 .hidden { display:none; }
 .center { padding-top:100px; }
-img.photo, #cakeImage, #cutCakeImage, #candleImage {
+img {
   width:300px;
   border-radius:15px;
   margin-top:20px;
   animation:pop 1s ease;
-}
-#cakeContainer {
-  margin-top:20px;
-  animation:pop 1s ease;
-  font-size:50px;
-}
-#candles {
-  margin-bottom:10px;
-  font-size:25px;
-}
-input {
-  padding:15px;
-  font-size:16px;
-  width:300px;
-  border-radius:8px;
-  border:none;
 }
 @keyframes pop {
   from { transform:scale(0); }
@@ -74,7 +56,7 @@ canvas#fireworks {
 <!-- PAGE 2: Birthday message -->
 <div id="page2" class="center hidden">
   <h1>🎆 Happy Birthday to my favorite boy, Nischay! 🎆</h1>
-  <img src="photos/nischay.jpeg" class="photo" alt="Nischay">
+  <img src="photos/nischay.jpeg" alt="Nischay">
 </div>
 
 <!-- PAGE 3: Make a wish -->
@@ -85,38 +67,28 @@ canvas#fireworks {
   <button onclick="submitWish()">Submit Wish</button>
 </div>
 
-<!-- PAGE 4: Cake with candles -->
+<!-- PAGE 4: Cake -->
 <div id="page4" class="center hidden">
   <h1>🎂 Here’s your cake! 🎂</h1>
-  <div id="cakeContainer">
-    <div id="candles">🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️🕯️</div>
-    <img id="cakeImage" src="photos/cake.jpg" alt="Cake">
-  </div>
+  <img id="cakeImage" src="photos/cake.jpg" alt="Cake">
   <br>
-  <button onclick="blowCandle()">Blow Candle</button>
+  <button onclick="blowCandle()" id="blowButton">Blow Candle</button>
+  <button onclick="showCutCake()" id="cutButton" class="hidden">Cut Cake</button>
 </div>
 
-<!-- PAGE 5: Candle blown image -->
+<!-- PAGE 5: Cut cake -->
 <div id="page5" class="center hidden">
-  <h1>💨 Candle blown! 💨</h1>
-  <img id="candleImage" src="photos/candle.jpg" alt="Candle blown">
-  <br>
-  <button onclick="showCutCake()">Cut Cake</button>
-</div>
-
-<!-- PAGE 6: Cut cake -->
-<div id="page6" class="center hidden">
   <h1>🍰 Cut the cake!</h1>
-  <img id="cutCakeImage" src="photos/cake.jpg" alt="Cake">
+  <img src="photos/cake.jpg" alt="Cake">
   <br>
   <button onclick="cakeCut()">Cut Cake</button>
 </div>
 
-<!-- PAGE 7: Cake cut success -->
-<div id="page7" class="center hidden">
+<!-- PAGE 6: Cake cut success -->
+<div id="page6" class="center hidden">
   <h1>🎉 Cake cut successfully! 🎉</h1>
   <p>💖 Happy Birthday once again! May all your wishes come true ✨</p>
-  <img src="photos/wish.jpeg" class="photo" alt="Final Wish">
+  <img src="photos/wish.jpeg" alt="Final Wish">
 </div>
 
 <!-- Fireworks Canvas -->
@@ -145,7 +117,6 @@ function bigFireworks(){
     ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`;
     ctx.fill();
   }
-
   setTimeout(()=>ctx.clearRect(0,0,canvas.width,canvas.height),1500);
 }
 
@@ -163,25 +134,28 @@ function submitWish(){
     alert("Please type your wish first!");
     return;
   }
-  show('page4'); // Show cake with candles
+  show('page4');
   bigFireworks();
 }
 
 // Blow Candle
 function blowCandle(){
-  show('page5'); // Show candle blown image
+  const cake = document.getElementById('cakeImage');
+  cake.src = 'photos/candle.jpg'; // replace cake with candle image
+  document.getElementById('blowButton').classList.add('hidden');
+  document.getElementById('cutButton').classList.remove('hidden');
   bigFireworks();
 }
 
 // Show Cut Cake page
 function showCutCake(){
-  show('page6');
+  show('page5');
   bigFireworks();
 }
 
 // Cut Cake
 function cakeCut(){
-  show('page7'); // Final success page
+  show('page6');
   bigFireworks();
 }
 </script>
