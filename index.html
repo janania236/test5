@@ -18,7 +18,7 @@ button {
   cursor:pointer;
   border:none;
   border-radius:8px;
-  background:#ff4081;
+  background:#007bff; /* Blue button */
   color:#fff;
 }
 .hidden { display:none; }
@@ -67,24 +67,25 @@ canvas#fireworks {
   <button onclick="submitWish()">Submit Wish</button>
 </div>
 
-<!-- PAGE 4: Cake -->
+<!-- PAGE 4: Here’s your cake -->
 <div id="page4" class="center hidden">
   <h1>🎂 Here’s your cake! 🎂</h1>
-  <img id="cakeImage" src="photos/cake.jpg" alt="Cake">
-  <br>
   <button onclick="blowCandle()" id="blowButton">Blow Candle</button>
+  <br>
+  <img id="candleImage" class="hidden" src="photos/candle.jpg" alt="Candle">
+  <br>
   <button onclick="showCutCake()" id="cutButton" class="hidden">Cut Cake</button>
 </div>
 
-<!-- PAGE 5: Cut cake -->
+<!-- PAGE 5: Show cake GIF -->
 <div id="page5" class="center hidden">
-  <h1>🍰 Cut the cake!</h1>
-  <img src="photos/cake.jpg" alt="Cake">
+  <h1>🍰 Cake Time!</h1>
+  <img src="photos/cake.jiff" alt="Cake GIF">
   <br>
   <button onclick="cakeCut()">Cut Cake</button>
 </div>
 
-<!-- PAGE 6: Cake cut success -->
+<!-- PAGE 6: Final message -->
 <div id="page6" class="center hidden">
   <h1>🎉 Cake cut successfully! 🎉</h1>
   <p>💖 Happy Birthday once again! May all your wishes come true ✨</p>
@@ -117,6 +118,7 @@ function bigFireworks(){
     ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`;
     ctx.fill();
   }
+
   setTimeout(()=>ctx.clearRect(0,0,canvas.width,canvas.height),1500);
 }
 
@@ -140,8 +142,7 @@ function submitWish(){
 
 // Blow Candle
 function blowCandle(){
-  const cake = document.getElementById('cakeImage');
-  cake.src = 'photos/candle.jpg'; // replace cake with candle image
+  document.getElementById('candleImage').classList.remove('hidden');
   document.getElementById('blowButton').classList.add('hidden');
   document.getElementById('cutButton').classList.remove('hidden');
   bigFireworks();
